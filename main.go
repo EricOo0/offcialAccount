@@ -1,20 +1,22 @@
 package main
 
 import (
-	"fmt"
+	"github.com/gin-gonic/gin"
 	"log"
-	"net/http"
-	"wxcloudrun-golang/db"
 	"wxcloudrun-golang/service"
 )
 
 func main() {
-	if err := db.Init(); err != nil {
-		panic(fmt.Sprintf("mysql init failed with %+v", err))
+	http := gin.Default()
+	publicRouter := http.Group("")
+	{
+
+		publicRouter.GET("/send_wx_msg", service.VerifyWxToken())
+		publicRouter.POST("/send_wx_msg", service.ProcessWxMsgHandler())
+
 	}
+	if err := http.Run(":80"); err != nil {
+		log.Fatalln("http server is fail!")
 
-	http.HandleFunc("/", service.IndexHandler)
-	http.HandleFunc("/api/count", service.CounterHandler)
-
-	log.Fatal(http.ListenAndServe(":80", nil))
+	}
 }
