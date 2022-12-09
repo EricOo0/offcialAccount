@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/google/uuid"
 	"io/ioutil"
 	"log"
@@ -33,7 +34,8 @@ type userInfo struct {
 }
 
 func newChatGPT() *ChatGPT {
-	sessionToken, err := os.ReadFile("sessionToken")
+	fmt.Println(os.Getwd())
+	sessionToken, err := os.ReadFile("./sessionToken")
 	if err != nil {
 		log.Fatalln(err)
 	}
