@@ -68,7 +68,7 @@ func ProcessWxMsgHandler() gin.HandlerFunc {
 				return
 			}
 			replyMsg = msg.(string)
-
+			fmt.Println(replyMsg)
 		} else {
 			util.TodoEvent(c.Writer)
 			return
