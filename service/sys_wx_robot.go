@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang/groupcache/singleflight"
 	"io/ioutil"
-	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -63,7 +62,7 @@ func ProcessWxMsgHandler() gin.HandlerFunc {
 				}
 			})
 			if err != nil {
-				log.Fatalln(err)
+				fmt.Println(err)
 				util.TodoEvent(c.Writer)
 				return
 			}
@@ -83,7 +82,7 @@ func ProcessWxMsgHandler() gin.HandlerFunc {
 		}
 		_, err := c.Writer.Write(textRes.ToXml())
 		if err != nil {
-			log.Fatalln(err)
+			fmt.Println(err)
 		}
 	}
 }
