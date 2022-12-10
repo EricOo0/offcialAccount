@@ -131,14 +131,18 @@ func (c *ChatGPT) SendMsg(msg, OpenID string, ctx context.Context) string {
 	req.Header.Set("Connection", "close")
 	req.Header.Set("Accept-Language", "en-US,en;q=0.9")
 	req.Header.Set("Referer", "https://chat.openai.com/chat")
-
+	fmt.Println("1:", time.Now())
 	resp, err := http.DefaultClient.Do(req)
+	fmt.Println("2:", time.Now())
+
 	if err != nil {
 		log.Fatalln(err)
 		return "服务器异常, 请稍后再试"
 	}
 	defer resp.Body.Close()
+
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	fmt.Println("3:", time.Now())
 	//bodyBytes, err := util.ReadWithCtx(ctx, resp.Body)
 	//defer util.PutBytes(bodyBytes)
 	if err != nil {
